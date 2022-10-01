@@ -1,16 +1,7 @@
 package Globals
 
-import Plugins.CommonUtils.ServiceCenter.userAccountServiceCode
-import Plugins.NucleicAPI.NucleicMessage
+import Plugins.CommonUtils.TypedSystem.API.API
 object GlobalVariables {
-
-  lazy val serviceCode = userAccountServiceCode
-
-  type APIType = NucleicMessage[Any]
-
-  var beforeSystemInit: () => Unit = () => {
-  }
-
-  var afterSystemInit: () => Unit = () => {
-  }
+  val serviceCode : String = "000000"
+  type APIType = API
 }

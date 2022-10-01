@@ -1,16 +1,12 @@
 package Plugins.CommonUtils.Utils
 
 import Globals.GlobalVariables
-import Plugins.CommonUtils.Exceptions.{CodeException, DeleteFileException, MessageException, UnknownReplyMessageTypeException}
+import Plugins.CommonUtils.Exceptions.{CodeException, MessageException}
 import Plugins.CommonUtils.TypedSystem.API.PlanUUID
 import Plugins.CommonUtils.Types.{CollectionsTypeFactory, ReplyMessage}
-import akka.event.slf4j.Logger
-import akka.http.scaladsl.model.headers.RawHeader
-import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
-import java.io.File
 import java.util
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe.{TypeTag, typeOf}
@@ -100,51 +96,6 @@ object IOUtils {
   }
 
 
-  def fromObject(success: Boolean, reply: Object): HttpResponse = HttpResponse(
-    status = {
-      if (success) StatusCodes.OK else StatusCodes.BadRequest
-    },
-    entity = IOUtils.serialize(reply)
-  )
-
-  def fromString(success: Boolean, reply: String): HttpResponse = HttpResponse(
-    status = {
-      if (success) StatusCodes.OK else StatusCodes.BadRequest
-    },
-    entity = reply
-  ).addHeader(RawHeader("Access-Control-Allow-Origin", "*"))
-
-
-
-  def passwordRemoval(map: Map[String, Any]): Map[String, Any] = {
-    var obj: Map[String, Any] = map
-    val specialKeys = List("serializedInfo", "toClusterMessage")
-    val passwordKey = "password"
-    if (obj.contains(passwordKey))
-      obj = obj.updated(passwordKey, "")
-    specialKeys.foreach(key =>
-      if (obj.contains(key)) {
-        obj = obj.updated(key,
-          obj(key) match {
-            case a: String => passwordRemoval(a)
-            case a: Any => passwordRemoval(a.asInstanceOf[Map[String, Any]])
-          }
-        )
-      }
-    )
-    obj
-  }
-
-  def passwordRemoval(bytes: String): String = {
-    IOUtils.serialize(passwordRemoval(
-      IOUtils.deserialize[Map[String, Any]](bytes)
-    ))
-  }
-
-  def printInfo(string: String): Unit = Logger("terminal").info(string)
-
-  def printError(string: String): Unit = Logger("terminal").error(string)
-
   /** 把exception变成字符串 */
   def exceptionToString(e: Throwable): String =
     e.getClass.getName + ":" +
@@ -182,32 +133,6 @@ object IOUtils {
           IOUtils.deserialize[T](replyMessage.info)
       case -1 => throw MessageException(replyMessage.info)
       case -2 => throw CodeException(replyMessage.info)
-      case _ => throw UnknownReplyMessageTypeException()
     }
   }
-
-  /** 看看folder是否存在 */
-  def checkFolder(folderName: String): Unit = {
-    val path = new File(folderName)
-    if (!path.exists()) path.mkdirs()
-  }
-
-  /** 强制删除文件 */
-  def deleteFile(fileName: String): Boolean = {
-    val file = new File(fileName)
-    if (file.exists()) {
-      var deleteResult: Boolean = false
-      var tryCount = 0
-      while (!deleteResult && tryCount < 10) {
-        System.gc()
-        deleteResult = file.delete()
-        tryCount += 1
-      }
-      if (deleteResult)
-        return true
-      else throw DeleteFileException()
-    }
-    false
-  }
-
 }

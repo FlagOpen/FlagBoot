@@ -40,7 +40,7 @@ object APISender {
       clientResource.use { client =>
         for {
           serialized <- IO(IOUtils.serialize(a))
-          reply <- client.expect[ReplyMessage](POST(json"""${serialized}""", uri))
+          reply <- client.expect[ReplyMessage](POST(raw"${serialized}", uri))
           ret <- IO.fromTry[T](replyToResult[T](reply))
         } yield ret
       }

@@ -1,11 +1,11 @@
 package Plugins.CommonUtils.TypedSystem.API
 
 import Plugins.CommonUtils.Types.JacksonSerializable
-import Plugins.CommonUtils.Utils.StringUtils
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.typesafe.scalalogging.Logger
 import org.joda.time.DateTime
 
+import java.util.UUID
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
@@ -37,7 +37,7 @@ abstract class API() extends JacksonSerializable {
 
 object API{
   /** 初始化uuid */
-  def initUUID():String= DateTime.now().getMillis.toString + ":" + StringUtils.randomLetterString(10)
+  def initUUID():String= DateTime.now().getMillis.toString + ":" + UUID.randomUUID().toString.take(10)
 
   def hasReply(className:String):Boolean= {
     className!="Unit" && className!="Nothing"
