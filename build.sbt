@@ -47,7 +47,7 @@ libraryDependencies ++= Seq(
   "io.netty" % "netty-tcnative-boringssl-static" % "2.0.22.Final",
   "com.sun.mail" % "javax.mail" % "1.6.2",
   //"ch.qos.logback" % "logback-classic" % "1.2.10",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4",
+  //"com.typesafe.scala-logging" %% "scala-logging" % "3.9.4",
   "io.monix" %% "monix" % "3.4.0",
   "org.http4s" %% "http4s-dsl" % http4sVersion,
   "org.http4s" %% "http4s-circe" % http4sVersion,

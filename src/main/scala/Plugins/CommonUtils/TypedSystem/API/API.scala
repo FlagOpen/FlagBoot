@@ -2,7 +2,6 @@ package Plugins.CommonUtils.TypedSystem.API
 
 import Plugins.CommonUtils.Types.JacksonSerializable
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.typesafe.scalalogging.Logger
 import org.joda.time.DateTime
 
 import java.util.UUID
@@ -30,9 +29,6 @@ abstract class API() extends JacksonSerializable {
 
   /** 表示当前API是否会产生回复。如果不会产生回复，则这里会复写成false */
   def hasReply:Boolean= API.hasReply(getReturnClassTag.toString())
-
-  /** 打印日志 */
-  def logger: Logger = Logger(uuid.id + "-" + this.getClass.getSimpleName)
 }
 
 object API{
