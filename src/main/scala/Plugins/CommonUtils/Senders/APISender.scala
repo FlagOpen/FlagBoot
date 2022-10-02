@@ -23,24 +23,18 @@ trait APISender[A <: API] {
 }
 
 object APISender {
+
   implicit val replyDecoder: EntityDecoder[IO, ReplyMessage] = jsonOf[IO, ReplyMessage]
+
   case class HttpAPISender[A <: API]()(implicit clientResource : Resource[IO, Client[IO]]) extends APISender[A] {
-    override def sendAndGet[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]): IO[B#ReturnType] = {
-      clientResource.use { client =>
-        for {
-          serialized <- IO(IOUtils.serialize(a))
-          _ <- IO (println(serialized))
-          reply <- client.expect[String](POST(raw"${serialized}", uri)).map(IOUtils.deserialize[ReplyMessage])
-          ret <- IO.fromTry[B#ReturnType](replyToResult[B#ReturnType](reply))
-        } yield ret
-      }
-    }
+
+    override def sendAndGet[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]): IO[B#ReturnType] = sendAndGetType[B#ReturnType](a, uri)
 
     override def sendAndGetType[T](a: A, uri: Uri)(implicit typeTag: universe.TypeTag[T], classTag: ClassTag[T]): IO[T] = {
       clientResource.use { client =>
         for {
           serialized <- IO(IOUtils.serialize(a))
-          reply <- client.expect[ReplyMessage](POST(raw"${serialized}", uri))
+          reply <- client.expect[String](POST(raw"${serialized}", uri)).map(IOUtils.deserialize[ReplyMessage])
           ret <- IO.fromTry[T](replyToResult[T](reply))
         } yield ret
       }
