@@ -18,14 +18,14 @@ import scala.reflect.ClassTag
 import scala.reflect.runtime.universe
 
 trait APISender[A <: API] {
-  def postAPI[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]) : IO[B#ReturnType]
-  def postAPIWithType[T](a : A, uri : Uri)(implicit typeTag:TypeTag[T], classTag:ClassTag[T]) : IO[T]
+  def sendAndGet[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]) : IO[B#ReturnType]
+  def sendAndGetType[T](a : A, uri : Uri)(implicit typeTag:TypeTag[T], classTag:ClassTag[T]) : IO[T]
 }
 
 object APISender {
   implicit val replyDecoder: EntityDecoder[IO, ReplyMessage] = jsonOf[IO, ReplyMessage]
   case class HttpAPISender[A <: API]()(implicit clientResource : Resource[IO, Client[IO]]) extends APISender[A] {
-    override def postAPI[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]): IO[B#ReturnType] = {
+    override def sendAndGet[B <: A](a : B, uri : Uri)(implicit typeTag:TypeTag[B#ReturnType], classTag:ClassTag[B#ReturnType]): IO[B#ReturnType] = {
       clientResource.use { client =>
         for {
           serialized <- IO(IOUtils.serialize(a))
@@ -36,7 +36,7 @@ object APISender {
       }
     }
 
-    override def postAPIWithType[T](a: A, uri: Uri)(implicit typeTag: universe.TypeTag[T], classTag: ClassTag[T]): IO[T] = {
+    override def sendAndGetType[T](a: A, uri: Uri)(implicit typeTag: universe.TypeTag[T], classTag: ClassTag[T]): IO[T] = {
       clientResource.use { client =>
         for {
           serialized <- IO(IOUtils.serialize(a))
