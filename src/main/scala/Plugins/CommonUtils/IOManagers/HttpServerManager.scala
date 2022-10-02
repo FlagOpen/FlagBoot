@@ -41,7 +41,7 @@ object HttpServerManager {
     for {
       clientResource <- IO(BlazeClientBuilder[IO](global).resource)
       t <- BlazeServerBuilder[IO](global)
-        .bindHttp(8082, "localhost")
+        .bindHttp(8080, "localhost")
         .withHttpApp(httpService(clientResource))
         .serve
         .compile

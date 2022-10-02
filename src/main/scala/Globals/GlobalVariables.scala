@@ -1,7 +1,9 @@
 package Globals
 
-import Plugins.CommonUtils.TypedSystem.API.API
+import Plugins.LightMessage
+
 object GlobalVariables {
   val serviceCode : String = "000000"
-  type APIType = API
+
+  type APIType = LightMessage[Any]
 }

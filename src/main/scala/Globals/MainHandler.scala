@@ -1,8 +1,8 @@
 package Globals
 
-import Impl.EmptySwitch
+import Impl.LightSwitch
 import Plugins.ClusterSystem.Extension.BaseAPIHandler
 import Plugins.CommonUtils.Senders.APISender
 import Plugins.CommonUtils.TypedSystem.API.API
 
-case class MainHandler(implicit apiSender : APISender[API]) extends BaseAPIHandler(EmptySwitch)(apiSender)
+case class MainHandler(implicit apiSender : APISender[API]) extends BaseAPIHandler(LightSwitch)(apiSender)

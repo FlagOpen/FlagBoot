@@ -5,7 +5,7 @@ import Plugins.ClusterSystem.Extension.PlannerSwitch
 import Plugins.CommonUtils.TypedSystem.API.{API, APIPlanner}
 
 
-object EmptySwitch extends PlannerSwitch {
+object LightSwitch extends PlannerSwitch {
   override def switch[A <: API](api: A): APIPlanner[A] = {
     (api match {
       case _ => throw APIMessageExecutorNotFoundException()
