@@ -1,7 +1,11 @@
 package Plugins.CommonUtils.TypedSystem.API
 
+import Plugins.CommonUtils.Senders.APISender
+import Plugins.CommonUtils.ServiceDiscovery.ServiceCode
 import Plugins.CommonUtils.Types.JacksonSerializable
+import cats.effect.IO
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.http4s.Uri
 import org.joda.time.DateTime
 
 import java.util.UUID
@@ -11,6 +15,9 @@ import scala.reflect.runtime.universe._
 /** API的基本类型，保存了API返回的数据类型 ReturnType */
 abstract class API() extends JacksonSerializable {
   type ReturnType
+
+  @JsonIgnore
+  def targetServiceCode : ServiceCode
   /// TODO: 暂时注释，等重构完成再去掉
   @JsonIgnore
   var uuid:PlanUUID=PlanUUID("")

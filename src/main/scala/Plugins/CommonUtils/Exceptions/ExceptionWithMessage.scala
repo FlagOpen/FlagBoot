@@ -10,6 +10,8 @@ abstract class ExceptionWithMessage() extends Exception {
 
 case class MessageException(override val message: String="用户操作执行错误！") extends ExceptionWithMessage
 
+case class HostnameNotFoundException(override val message: String = "错误！未找到可行的服务器，请稍后重试") extends ExceptionWithMessage
+
 case class ConnectionFailedException() extends ExceptionWithMessage {
   override val message: String = "连接错误！"
 }

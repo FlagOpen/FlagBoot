@@ -55,6 +55,8 @@ libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-ember-client" % http4sVersion,
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
   "org.http4s" %% "http4s-blaze-client" % http4sVersion,
+  "com.github.pureconfig" %% "pureconfig" % "0.17.1",
+  "dev.profunktor" %% "redis4cats-effects" % "0.14.0"
 )
 addCompilerPlugin(
   "org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full

@@ -8,9 +8,10 @@ import cats.effect.IO.ioEffect
 
 object IOServer extends IOApp {
 
+  import Plugins.CommonUtils.ServiceDiscovery.ServiceDiscoveryCommunicateImpls.LocalServiceDiscoveryImpl._
   override def run(args: List[String]): IO[ExitCode] = {
     beforeInit *> pullServices().background.use { _ =>
-        createHttpServer() *> afterInit.as(ExitCode.Success).handleErrorWith(e => IO {
+        createHttpServer(localServiceDiscoveryImpl) *> afterInit.as(ExitCode.Success).handleErrorWith(e => IO {
         e.printStackTrace()
         ExitCode.Error
       })
