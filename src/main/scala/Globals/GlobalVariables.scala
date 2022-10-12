@@ -1,12 +1,16 @@
 package Globals
 
+import Plugins.CommonUtils.Senders.APISender
 import Plugins.CommonUtils.ServiceDiscovery.ServiceCode
-import Plugins.TestMessages.LightMessage
+import Plugins.CommonUtils.TypedSystem.API.API
+import cats.effect.IO
+import org.http4s.HttpRoutes
+import org.http4s.Status.Ok
 import pureconfig.ConfigSource
 
 object GlobalVariables {
   val serviceCode : ServiceCode = ServiceCode("0000")
   implicit val codeMap : Map[String, String] = ConfigSource.default.at("lightAPP").at("service-code-map").loadOrThrow[Map[String, String]]
 
-  type APIType = LightMessage[Any]
+  def mainRoutes(implicit apiSender : APISender[API]) : HttpRoutes[IO] = ???
 }

@@ -6,7 +6,7 @@ import cats.effect.{ContextShift, ExitCode, IO, IOApp, Timer}
 import dev.profunktor.redis4cats.Redis
 import dev.profunktor.redis4cats.effect.Log.Stdout._
 
-case class RedisServiceDiscoveryImpl[B <: ServiceDiscoveryInfoMode, IT](implicit serviceInfoDiscoveryImpl: ServiceInfoDiscoveryImpl[B, IT, String], context : ContextShift[IO], timer : Timer[IO])
+case class RedisServiceDiscoveryImpl[B <: ServiceDiscoveryInfoMode, IT]()(implicit serviceInfoDiscoveryImpl: ServiceInfoDiscoveryImpl[B, IT, String], context : ContextShift[IO], timer : Timer[IO])
 
   extends ServiceDiscoveryCommunicateImpl[RedisServiceDiscoveryCommunicateMode ,B, IT, String] {
 

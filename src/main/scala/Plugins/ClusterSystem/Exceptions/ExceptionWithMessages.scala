@@ -16,3 +16,6 @@ case class NoToClusterMessageWrapException(api:API) extends ExceptionWithMessage
   override val message: String=s"错误：没有找到当前消息${api.getClass.getName}的wrap！"
 }
 
+case class UnrecognizedMessage(msg :String) extends ExceptionWithMessage {
+  override val message: String = s"错误：无法识别的消息${msg}"
+}

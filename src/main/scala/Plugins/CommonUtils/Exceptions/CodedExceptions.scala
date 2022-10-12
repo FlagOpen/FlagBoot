@@ -1,6 +1,5 @@
 package Plugins.CommonUtils.Exceptions
 
-
 abstract class ExceptionWithCode extends Exception{
   val code:String
   override def getMessage: String = ""+getFullCode

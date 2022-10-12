@@ -1,4 +1,5 @@
 package Plugins.CommonUtils.ServiceDiscovery.ServiceInfoDiscoveryImpls
+
 import Plugins.CommonUtils.ServiceDiscovery.ServiceDiscoveryHostnameInfoMode
 import cats.effect.IO
 

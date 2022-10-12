@@ -1,4 +1,5 @@
 package Plugins.CommonUtils.Configs
+
 import pureconfig._
 import pureconfig.generic.auto._
 
