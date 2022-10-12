@@ -31,7 +31,7 @@ trait APISender[A <: API] {
 
 object APISender {
 
-  implicit val replyDecoder: EntityDecoder[IO, ReplyMessage] = jsonOf[IO, ReplyMessage]
+  //implicit val replyDecoder: EntityDecoder[IO, ReplyMessage] = jsonOf[IO, ReplyMessage]
 
   case class HttpAPISender[A <: API]()(implicit client : Client[IO],
                                        discoveryImpl : ServiceDiscoveryCommunicateImpl[ServiceDiscoveryCommunicateMode, ServiceDiscoveryHostnameInfoMode, String, String]

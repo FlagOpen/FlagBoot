@@ -8,18 +8,12 @@ import cats.effect.IO
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.http4s.{Method, Request, Uri}
 import org.joda.time.DateTime
-import io.circe._
-import io.circe.literal._
-import io.circe.syntax._
-import io.circe.generic.auto._
-import io.circe.generic.semiauto._
-import io.circe.parser._
-import org.http4s.dsl.io.{GET, Root}
-
+import org.http4s.Method.POST
 import java.util.UUID
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
+import org.http4s.client.dsl.io._
 /** API的基本类型，保存了API返回的数据类型 ReturnType */
 abstract class API extends JacksonSerializable {
   type ReturnType
@@ -29,7 +23,7 @@ abstract class API extends JacksonSerializable {
   @JsonIgnore
   def apiPathName : String = this.getClass.getSimpleName.toLowerCase
   @JsonIgnore
-  def makeRequest(root : Uri) : Request[IO] = Request[IO](Method.GET, root / apiPathName / encodeToJson)
+  def makeRequest(root : Uri) : Request[IO] = POST(raw"${encodeToJson}", root / apiPathName)
   @JsonIgnore
   def targetServiceCode : ServiceCode
   /// TODO: 暂时注释，等重构完成再去掉

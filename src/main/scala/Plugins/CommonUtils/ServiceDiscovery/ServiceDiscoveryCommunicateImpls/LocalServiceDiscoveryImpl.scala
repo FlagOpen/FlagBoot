@@ -5,7 +5,7 @@ import Plugins.CommonUtils.ServiceDiscovery.ServiceInfoDiscoveryImpls.ServiceInf
 import Plugins.CommonUtils.ServiceDiscovery.{LocalServiceDiscoveryCommunicateMode, ServiceCode, ServiceDiscoveryHostnameInfoMode, ServiceDiscoveryInfoMode}
 import cats.effect.IO
 
-case class LocalServiceDiscoveryImpl[B <: ServiceDiscoveryInfoMode, IT]()(implicit serviceInfoDiscoveryImpl: ServiceInfoDiscoveryImpl[B, IT, IT],
+case class LocalServiceDiscoveryImpl[B <: ServiceDiscoveryInfoMode, IT](implicit serviceInfoDiscoveryImpl: ServiceInfoDiscoveryImpl[B, IT, IT],
                                                                         codeMap : Map[String, IT])
   extends ServiceDiscoveryCommunicateImpl[LocalServiceDiscoveryCommunicateMode, B, IT, IT] {
 
