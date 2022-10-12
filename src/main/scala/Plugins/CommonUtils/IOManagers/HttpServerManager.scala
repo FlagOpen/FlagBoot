@@ -49,7 +49,7 @@ object HttpServerManager {
   def createHttpServer(discoveryImpl : ServiceDiscoveryCommunicateImpl[ServiceDiscoveryCommunicateMode, ServiceDiscoveryHostnameInfoMode, String, String])
                       (implicit context : ContextShift[IO], timer : Timer[IO]) : IO[Unit] = {
     for {
-      clientResource <- IO(BlazeClientBuilder[IO](global).resource)
+      clientResource <- IO(BlazeClientBuilder[IO](global).withMaxTotalConnections(1024).withMaxWaitQueueLimit(1024).withMaxConnectionsPerRequestKey(Function.const(1024)).resource)
       t <- clientResource.use {
         client =>
           BlazeServerBuilder[IO](global)
