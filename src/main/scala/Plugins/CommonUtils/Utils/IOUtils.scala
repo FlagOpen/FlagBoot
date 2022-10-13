@@ -109,7 +109,7 @@ object IOUtils {
   /** 把exception变成reply message, status=2, info=code。这个方法专门用于处理运行过程中没有编码的exception，所以编码为0000，
    * 并且附上了错误的具体内容 */
   def exceptionToReplyCode(e: Throwable, uuid: String): ReplyMessage =
-    ReplyMessage(-2, GlobalVariables.serviceCode + "0000" + exceptionToString(e), uuid)
+    ReplyMessage(-2, "0000" + exceptionToString(e), uuid)
 
   def resultToReply[Ret](result:Try[Ret], uuid:PlanUUID): ReplyMessage ={
     result match {
