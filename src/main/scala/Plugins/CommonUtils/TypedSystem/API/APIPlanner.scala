@@ -1,6 +1,5 @@
 package Plugins.CommonUtils.TypedSystem.API
 
-import Globals.MainHandler
 import Plugins.ClusterSystem.Exceptions.UnrecognizedMessage
 import Plugins.CommonUtils.IOManagers.HttpServerManager.processTimeOut
 import Plugins.CommonUtils.Senders.APISender

@@ -1,6 +1,6 @@
 package Plugins.CommonUtils.IOManagers
 
-import Globals.{GlobalVariables, MainHandler}
+import Globals.GlobalVariables
 import Plugins.CommonUtils.Utils.IOUtils
 import Plugins.CommonUtils.Utils.IOUtils.resultToReply
 import cats.effect.concurrent.Ref

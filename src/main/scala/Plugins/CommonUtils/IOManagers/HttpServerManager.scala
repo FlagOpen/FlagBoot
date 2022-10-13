@@ -1,6 +1,6 @@
 package Plugins.CommonUtils.IOManagers
 
-import Globals.{GlobalVariables, MainHandler}
+import Globals.GlobalVariables
 import Plugins.CommonUtils.ServiceDiscovery.ServiceDiscoveryCommunicateImpls.ServiceDiscoveryCommunicateImpl
 import Plugins.CommonUtils.ServiceDiscovery.{ServiceDiscoveryCommunicateMode, ServiceDiscoveryHostnameInfoMode, ServiceDiscoveryInfoMode}
 import Plugins.CommonUtils.TypedSystem.API.API
