@@ -9,7 +9,6 @@ import org.http4s.Status.Ok
 import pureconfig.ConfigSource
 
 object GlobalVariables {
-  val serviceCode : ServiceCode = ServiceCode("0000")
   implicit val codeMap : Map[String, String] = ConfigSource.default.at("lightAPP").at("service-code-map").loadOrThrow[Map[String, String]]
 
   def mainRoutes(implicit apiSender : APISender[API]) : HttpRoutes[IO] = ???
