@@ -2,7 +2,7 @@ ThisBuild / scalaVersion := "2.12.8"
 
 lazy val server = (project in file("."))
   .settings(
-    name := "light-template",
+    name := "Flag-Boot-Template",
     Compile/mainClass := Some("Process.IOServer"),
     assembly/mainClass := Some("Process.IOServer"),
     assembly/assemblyMergeStrategy := {
@@ -10,7 +10,7 @@ lazy val server = (project in file("."))
       case "application.conf" => MergeStrategy.concat
       case x => MergeStrategy.first
     },
-    assemblyJarName in assembly := "Light-Template.jar"
+    assemblyJarName in assembly := "Flag-Boot-Template.jar"
   )
 lazy val doobieVersion = "0.13.4"
 val circeVersion = "0.14.1"
