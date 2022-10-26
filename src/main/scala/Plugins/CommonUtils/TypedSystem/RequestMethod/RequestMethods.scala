@@ -1,0 +1,7 @@
+package Plugins.CommonUtils.TypedSystem.RequestMethod
+
+sealed trait RequestMethods
+
+trait DefaultPostMethod extends RequestMethods
+trait DefaultGetMethod extends RequestMethods
+trait CustomRequestMethod extends RequestMethods

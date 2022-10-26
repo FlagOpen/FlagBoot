@@ -2,28 +2,18 @@ package Plugins.CommonUtils.TypedSystem.API
 
 import Plugins.CommonUtils.Senders.APISender
 import Plugins.CommonUtils.ServiceDiscovery.ServiceCode
+import Plugins.CommonUtils.TypedSystem.RequestMethod.DefaultGetMethod
 import Plugins.CommonUtils.Types.JacksonSerializable
-import Plugins.CommonUtils.Utils.IOUtils
-import cats.effect.IO
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.http4s.{Method, Request, Uri}
 import org.joda.time.DateTime
-import org.http4s.Method.POST
 import java.util.UUID
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
-
-import org.http4s.client.dsl.io._
 /** API的基本类型，保存了API返回的数据类型 ReturnType */
 abstract class API extends JacksonSerializable {
   type ReturnType
+  type RequestMethod = DefaultGetMethod
 
-  @JsonIgnore
-  def encodeToJson : String = IOUtils.serialize(this)
-  @JsonIgnore
-  def apiPathName : String = this.getClass.getSimpleName.toLowerCase
-  @JsonIgnore
-  def makeRequest(root : Uri) : Request[IO] = POST(raw"${encodeToJson}", root / apiPathName)
   @JsonIgnore
   def targetServiceCode : ServiceCode
   /// TODO: 暂时注释，等重构完成再去掉
