@@ -26,9 +26,11 @@ You can also learn from this video: [Video Tutorial](https://www.bilibili.com/vi
 
 Full documentation will come soon.
 
-## Contributor
-  - Yang Yuan
-  - Jingqin Yang
+## Maintainers
+  - Chao Li
+  - Yu Liu
+  - Jingqin Yang (creator)
+  - Yang Yuan (creator)
 
 ## License
 
