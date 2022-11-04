@@ -32,6 +32,8 @@ Full documentation will come soon.
 
 ## License
 
+Apache 2.0 license
+
 ## Acknowledgement
 - [Cats](http://typelevel.org/cats)
 - [Cats-Effect](https://typelevel.org/cats-effect/)
